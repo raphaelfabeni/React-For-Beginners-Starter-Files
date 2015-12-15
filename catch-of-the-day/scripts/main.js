@@ -5,6 +5,7 @@ var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Navigation = ReactRouter.Navigation;
+var History = ReactRouter.History;
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var h = require('./helpers');
@@ -27,6 +28,19 @@ var App = React.createClass({
     );
   }
 
+});
+
+/*
+  Add Fish Form
+  <AddFishForm />
+ */
+
+var AddFishForm = React.createClass({
+  render: function() {
+    return(
+      <p>testing</p>
+    );
+  }
 });
 
 
@@ -72,7 +86,10 @@ var Order = React.createClass({
 var Inventory = React.createClass({
   render: function() {
     return(
-      <p>Inventory</p>
+      <div>
+        <h2>Inventory</h2>
+        <AddFishForm />
+      </div>
     );
   }
 });
@@ -83,10 +100,20 @@ var Inventory = React.createClass({
  */
 
 var StorePicker = React.createClass({
+  mixins: [History],
+  
+  gotToStore: function(event) {
+    event.preventDefault();
+    // get the data from input
+    var storeID = this.refs.storeId.value;
+
+    // transition from <StorePicker /> to <App />
+    this.history.pushState(null, '/store/' + storeID);
+  },
 
   render: function() {
     return(
-      <form className="store-selector">
+      <form className="store-selector" onSubmit={this.gotToStore}>
         <h2>Please Enter A Store</h2>
         <input type="text" ref="storeId" defaultValue={h.getFunName()} required />
         <input type="Submit" />
