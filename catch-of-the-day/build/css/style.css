@@ -46,6 +46,7 @@
   position: absolute;
 }
 .count-leave.count-leave-active {
+  position: absolute;
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
 }
